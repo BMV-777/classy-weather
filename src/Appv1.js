@@ -1,7 +1,6 @@
 import React from "react";
 import { CircleFlag } from "react-circle-flags";
 import Weather from "./components/Weather/Weather";
-import Input from "./components/Input/Input";
 
 function getWeatherIcon(wmoCode) {
   const icons = new Map([
@@ -36,14 +35,19 @@ function formatDay(dateStr) {
 }
 
 class App extends React.Component {
-  state = {
-    location: "Zaporozhye",
-    isLoading: false,
-    displayLocation: "",
-    weather: {},
-  };
+  constructor(props) {
+    super(props);
 
-  fetchWeather = async () => {
+    this.state = {
+      location: "Zaporozhye",
+      isLoading: false,
+      displayLocation: "",
+      weather: {},
+    };
+    this.fetchWeather = this.fetchWeather.bind(this);
+  }
+
+  async fetchWeather() {
     try {
       this.setState({ isLoading: true });
       // 1) Getting location (geocoding)
@@ -75,18 +79,21 @@ class App extends React.Component {
     } finally {
       this.setState({ isLoading: false });
     }
-  };
-
-  setLocation = (e) => this.setState({ location: e.target.value });
+  }
 
   render() {
     return (
       <div className="app">
         <h1>Classy Weather</h1>
-        <Input
-          location={this.state.location}
-          onChangeLocation={this.setLocation}
+        <CircleFlag countryCode="es" height="35" />
+        <input
+          type="text"
+          placeholder="Search from Location..."
+          value={this.state.location}
+          onChange={(e) => this.setState({ location: e.target.value })}
         />
+        {/* <CircleFlag countryCode="es" height="35" /> */}
+
         <button onClick={this.fetchWeather}>Get weather</button>
         {this.state.isLoading && <p className="Loader">Loading...</p>}
         {this.state.weather.weathercode && (
@@ -106,15 +113,8 @@ class App extends React.Component {
     );
   }
 }
-//14/183
+//14/180
 
 export default App;
 
 // https://www.npmjs.com/package/react-circle-flags
-
-{
-  /* <input  type="text"
-          placeholder="Search from Location..."
-          value={this.state.location}
-          onChange={(e) => this.setState({ location: e.target.value })}/> */
-}

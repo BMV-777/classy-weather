@@ -2,6 +2,8 @@ import React from "react";
 
 import { CircleFlag } from "react-circle-flags";
 
+import Day from "./Day/Day";
+
 class Weather extends React.Component {
   render() {
     console.log(this.props);
@@ -24,6 +26,7 @@ class Weather extends React.Component {
               max={max.at(i)}
               code={codes.at(i)}
               key={date}
+              isToday={i === 0}
               getWeatherIcon={this.props.getWeatherIcon}
               formatDay={this.props.formatDay}
             />
@@ -39,18 +42,18 @@ export default Weather;
   /* <CircleFlag countryCode="es" height="35" />; */
 }
 
-class Day extends React.Component {
-  render() {
-    const { date, min, max, code, formatDay, getWeatherIcon } = this.props;
+// class Day extends React.Component {
+//   render() {
+//     const { date, min, max, code, formatDay, getWeatherIcon } = this.props;
 
-    return (
-      <li className="day">
-        <span>{getWeatherIcon(code)}</span>
-        <p>{formatDay(date)}</p>
-        <p>
-          {Math.floor(min)} &deg; &mdash; {Math.ceil(max)}
-        </p>
-      </li>
-    );
-  }
-}
+//     return (
+//       <li className="day">
+//         <span>{getWeatherIcon(code)}</span>
+//         <p>{formatDay(date)}</p>
+//         <p>
+//           {Math.floor(min)} &deg; &mdash; {Math.ceil(max)}
+//         </p>
+//       </li>
+//     );
+//   }
+// }
