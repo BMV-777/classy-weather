@@ -8,7 +8,7 @@ class Day extends React.Component {
     return (
       <li className="day">
         <span>{getWeatherIcon(code)}</span>
-        <p>{isToday | formatDay(date)}</p>
+        <p>{isToday ? "Today" : formatDay(date)}</p>
         <p>
           {Math.floor(min)} &deg; &mdash;{" "}
           <strong>{Math.ceil(max)} &deg;</strong>
